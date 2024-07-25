@@ -1,8 +1,14 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Outfit } from "next/font/google";
+import "@radix-ui/themes/styles.css";
 import "./globals.css";
+import { Box, Theme } from "@radix-ui/themes";
+import TopNav from "@/components/ui/nav/top-nav.component";
 
-const inter = Inter({ subsets: ["latin"] });
+const merriweather = Outfit({
+  subsets: ["latin"],
+  variable: "--font-merriweather",
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,7 +22,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={merriweather.variable}>
+        <Theme accentColor="tomato" appearance="dark">
+          <Box className="relative overflow-hidden">
+            <TopNav />
+            {children}
+          </Box>
+        </Theme>
+      </body>
     </html>
   );
 }
