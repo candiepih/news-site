@@ -4,6 +4,7 @@ import "@radix-ui/themes/styles.css";
 import "./globals.css";
 import { Box, Theme } from "@radix-ui/themes";
 import TopNav from "@/components/ui/nav/top-nav.component";
+import Footer from "@/components/ui/footer";
 
 const merriweather = Outfit({
   subsets: ["latin"],
@@ -27,6 +28,7 @@ export default function RootLayout({
           <Box className="relative overflow-hidden">
             <TopNav />
             {children}
+            <Footer />
           </Box>
         </Theme>
       </body>

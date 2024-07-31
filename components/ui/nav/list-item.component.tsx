@@ -1,6 +1,7 @@
 "use client";
 
 import * as NavigationMenu from "@radix-ui/react-navigation-menu";
+import { Badge, Text } from "@radix-ui/themes";
 import clsx from "clsx";
 import { usePathname } from "next/navigation";
 import React from "react";
@@ -24,7 +25,12 @@ const NavListItem: React.FC<NavListItemProps> = ({ title, href }) => {
         className={clsx("hover:text-[var(--accent-11)]", activeClass)}
         href={href}
       >
-        {title}
+        {isActive && (
+          <Badge variant="solid" radius="full" mb="2" size="3">
+            {title}
+          </Badge>
+        )}
+        {!isActive && (<Text size="3">{title}</Text>)}
       </NavigationMenu.Link>
     </NavigationMenu.Item>
   );

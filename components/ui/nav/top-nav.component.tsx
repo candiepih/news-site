@@ -9,11 +9,11 @@ const TopNav = () => {
       <NavigationMenu.Root className="fixed top-0 left-0 z-20 w-[100%]">
         <Box width="100%" className="h-44 absolute top-0 left-0 bg-gradient-to-b from-[var(--accent-1)] to-transparent"></Box>
         <Flex justify="between" py="5" px="9"  position="absolute" top="0" left="0" width="100%">
-          <Flex gap="6" align="center" direction="row">
+          <Flex gap="6" direction="row">
             <Box>
               <Heading>News</Heading>
             </Box>
-            <NavigationMenu.List className="flex flex-row gap-5">
+            <NavigationMenu.List className="flex flex-row gap-5 align-middle">
               <NavListItem title="Home" href="/" />
               <NavListItem title="About" href="/about" />
               <NavListItem title="Contact" href="/contact" />
