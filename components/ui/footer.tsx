@@ -8,7 +8,7 @@ interface FooterButtonProps {
 
 const FooterButton: React.FC<FooterButtonProps> = ({ children, href }) => {
   return (
-    <IconButton variant="soft" asChild>
+    <IconButton variant="ghost" asChild>
       <Link href={href} className="text-xl">{children}</Link>
     </IconButton>
   );

@@ -1,18 +1,23 @@
+import { Box } from "@radix-ui/themes";
 import dynamic from "next/dynamic";
-import CategorySection from "@/components/pages/sections/categories/category";
 
 const HeroSection = dynamic(
   () => import("@/components/pages/sections/hero-section/main.component")
 );
+const NewsCards = dynamic(
+  () => import("@/components/pages/sections/categories/news-cards.component")
+);
 
-export default function Home() {
+export default function CategoryPage() {
   return (
     <main>
       <HeroSection />
-      <CategorySection />
-      <CategorySection />
-      <CategorySection />
-      <CategorySection />
+      <Box className="h-auto" m="9">
+        <NewsCards />
+        <NewsCards />
+        <NewsCards />
+        <NewsCards />
+      </Box>
     </main>
   );
 }

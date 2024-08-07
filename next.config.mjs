@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
+const apiUrl = process.env.API_URL;
+
 const nextConfig = {
+  reactStrictMode: true,
   images: {
     remotePatterns: [
       {
@@ -15,6 +18,16 @@ const nextConfig = {
         pathname: "/**",
       },
     ],
+  },
+  async rewrites() {
+    return {
+      beforeFiles: [
+        {
+          source: "/api/:path*",
+          destination: `${apiUrl}/:path*/`,
+        },
+      ],
+    };
   },
 };
 
