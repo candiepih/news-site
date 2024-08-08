@@ -20,7 +20,7 @@ const TopNav = () => {
     <NavigationMenu.Root className="fixed top-0 left-0 z-20 w-[100%]">
       <Box
         width="100%"
-        className="h-20 absolute top-0 left-0 bg-gradient-to-b from-[var(--accent-1)] via-[var(--accent-1)] via-20% to-transparent to-95%"
+        className="h-20 absolute top-0 left-0 bg-gradient-to-b from-[var(--accent-2)] via-[var(--accent-2)] via-35% to-transparent to-95%"
       />
       <Flex
         justify="between"

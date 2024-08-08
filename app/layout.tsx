@@ -24,12 +24,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={merriweather.variable}>
-        <Theme accentColor="tomato" appearance="dark">
-          <Box className="relative overflow-hidden">
-            <TopNav />
-            {children}
-            <Footer />
-          </Box>
+        <Theme
+          accentColor="tomato"
+          appearance="dark"
+          radius="small"
+          className="bg-[var(--accent-1)]"
+        >
+          <TopNav />
+          {children}
+          <Footer />
         </Theme>
       </body>
     </html>
