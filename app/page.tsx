@@ -1,16 +1,13 @@
 import dynamic from "next/dynamic";
-import CategorySection from "@/components/pages/sections/categories/category";
 
-const HeroSection = dynamic(() => import("@/components/pages/sections/hero-section/main.component"));
+const HeroSection = dynamic(() => import("@/components/pages/hero-section/main.component"));
+const CategorySections = dynamic(() => import("@/components/pages/home-page/categories.component"));
 
 export default function Home() {
   return (
     <main>
-      <HeroSection />
-      <CategorySection />
-      <CategorySection />
-      <CategorySection />
-      <CategorySection />
+      <HeroSection categoryName="global_news" />
+      <CategorySections />
     </main>
   );
 }

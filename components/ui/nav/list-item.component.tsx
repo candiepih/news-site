@@ -27,7 +27,7 @@ const NavListItem: React.FC<NavListItemProps> = ({ title, href }) => {
         className={clsx("hover:text-[var(--accent-11)]", activeClass)}
       >
         {isActive && (
-          <Badge variant="solid" radius="full" mb="2" size="3">
+          <Badge variant="solid" radius="full" size="3">
             {title}
           </Badge>
         )}

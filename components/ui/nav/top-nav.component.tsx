@@ -4,7 +4,7 @@ import { Box, Flex, Heading, IconButton, Tooltip } from "@radix-ui/themes";
 import * as NavigationMenu from "@radix-ui/react-navigation-menu";
 import dynamic from "next/dynamic";
 import useSWR from "swr";
-import { CATEGORIES_PATH } from "@/lib/urls";
+import { API_CATEGORIES_PATH } from "@/lib/urls";
 import { fetcher } from "@/lib/queries/fetcher";
 import { CATEGORIES_ROUTE } from "@/lib/routes";
 import { formatTitle } from "@/lib/helpers/format";
@@ -14,7 +14,10 @@ const NavListItem = dynamic(
 );
 
 const TopNav = () => {
-  const { isLoading, error, data } = useSWR<string[]>(CATEGORIES_PATH, fetcher);
+  const { isLoading, error, data } = useSWR<string[]>(
+    API_CATEGORIES_PATH,
+    fetcher
+  );
 
   return (
     <NavigationMenu.Root className="fixed top-0 left-0 z-20 w-[100%]">
@@ -36,11 +39,8 @@ const TopNav = () => {
             <Heading>News</Heading>
           </Box>
           {data && (
-            <NavigationMenu.List className="flex flex-row gap-5 align-middle">
-              <NavListItem
-                title="All"
-                href="/"
-              />
+            <NavigationMenu.List className="flex flex-row gap-5">
+              <NavListItem title="All" href="/" />
               {data.map((category) => (
                 <NavListItem
                   key={category}

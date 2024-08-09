@@ -1,3 +1,5 @@
+import { formatImageUrl } from "@/lib/helpers/format";
+import { Article } from "@/lib/types/article";
 import {
   Box,
   Card,
@@ -8,30 +10,33 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 
-const NewsCard = () => {
+interface NewsCardProps {
+  article: Article;
+}
+
+const NewsCard: React.FC<NewsCardProps> = ({ article }) => {
   return (
     <Card size="2" asChild>
-      <Link href="#">
+      <Link href={article.link} target="_blank">
         <Flex>
-          <Inset clip="padding-box" side="left">
-            <Box width="160px" height="100%" position="relative">
+          <Inset clip="padding-box" side="left" className="overflow-clip">
+            <Box width="100px" height="100%" position="relative">
               <Image
-                src="https://images.unsplash.com/photo-1617050318658-a9a3175e34cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80"
+                src={formatImageUrl(article.image)}
                 alt="logo"
                 fill={true}
                 priority={true}
                 sizes="(max-width: 160px) 100vw, 33vw"
-                className="object-cover object-center"
+                className="object-cover object-top"
               />
             </Box>
           </Inset>
           <Box pl="2">
             <Text as="p" size="2" className="line-clamp-2">
-              Typography is the art and technique of arranging
-              type
+              {article.title}
             </Text>
             <Text as="p" size="1" mt="1" color="gray">
-              Kotaku
+              {article.source}
             </Text>
           </Box>
         </Flex>

@@ -7,16 +7,10 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "images.unsplash.com",
+        hostname: "*",
         port: "",
         pathname: "/**",
-      },
-      {
-        protocol: "https",
-        hostname: "www.kbc.co.ke",
-        port: "",
-        pathname: "/**",
-      },
+      }
     ],
   },
   async rewrites() {

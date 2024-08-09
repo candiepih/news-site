@@ -1,3 +1,8 @@
+import { formatTitle } from "@/lib/helpers/format";
+import { fetcher } from "@/lib/queries/fetcher";
+import { CATEGORIES_ROUTE } from "@/lib/routes";
+import { Article } from "@/lib/types/article";
+import { API_CATEGORIES_PATH } from "@/lib/urls";
 import {
   Box,
   Flex,
@@ -5,17 +10,27 @@ import {
   Link
 } from "@radix-ui/themes";
 import dynamic from "next/dynamic";
+import useSWR from "swr";
 
-const NewsCards = dynamic(() => import("@/components/pages/sections/categories/news-cards.component"));
+const NewsCards = dynamic(() => import("@/components/ui/articles/article-cards.component"));
 
-const CategorySection = () => {
+interface CategorySectionProps {
+  categoryName: string;
+}
+
+const CategorySection: React.FC<CategorySectionProps> = ({ categoryName }) => {
+  const { isLoading, error, data } = useSWR<Article[]>(
+    `${API_CATEGORIES_PATH}/${categoryName}`,
+    fetcher
+  );
+
   return (
     <Box className="h-auto" m="9">
       <Flex justify="between" align="center" gap="4" my="5">
         <Heading as="h1" size="6">
-          Category
+          {formatTitle(categoryName)}
         </Heading>
-        <Link href="#">
+        <Link href={`${CATEGORIES_ROUTE}/${categoryName}`}>
           <Flex as="span" display="inline-flex" align="center" gapX="2">
             View all
             <svg
@@ -35,7 +50,7 @@ const CategorySection = () => {
           </Flex>
         </Link>
       </Flex>
-      <NewsCards />
+      <NewsCards data={data?.slice(0, 4)} />
     </Box>
   );
 };
