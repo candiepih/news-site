@@ -1,8 +1,9 @@
 "use client";
 
 import { formatImageUrl, formatTitle } from "@/lib/helpers/format";
-import { fetcher } from "@/lib/queries/fetcher";
+import { fetcher } from "@/lib/swr/fetcher";
 import { Article } from "@/lib/types/article";
+import { QueryApiResponse } from "@/lib/types/query-api-response";
 import { API_CATEGORIES_PATH } from "@/lib/urls";
 import { Badge, Box, Flex, Heading, Link, Text } from "@radix-ui/themes";
 import dynamic from "next/dynamic";
@@ -18,13 +19,13 @@ interface HeroSectionProps {
 }
 
 const HeroSection: React.FC<HeroSectionProps> = ({ categoryName }) => {
-  const { isLoading, error, data } = useSWR<Article[]>(
+  const { isLoading, error, data } = useSWR<QueryApiResponse<Article>>(
     `${API_CATEGORIES_PATH}/${categoryName}`,
     fetcher
   );
 
-  const firstArticle = data?.[0];
-  const otherArticles = data?.slice(1, 4);
+  const firstArticle = data?.results[0];
+  const otherArticles = data?.results.slice(1, 4);
   const defaultImage = "/no-image-2.webp";
 
   return (

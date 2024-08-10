@@ -1,7 +1,8 @@
 import { formatTitle } from "@/lib/helpers/format";
-import { fetcher } from "@/lib/queries/fetcher";
 import { CATEGORIES_ROUTE } from "@/lib/routes";
+import { fetcher } from "@/lib/swr/fetcher";
 import { Article } from "@/lib/types/article";
+import { QueryApiResponse } from "@/lib/types/query-api-response";
 import { API_CATEGORIES_PATH } from "@/lib/urls";
 import {
   Box,
@@ -19,7 +20,7 @@ interface CategorySectionProps {
 }
 
 const CategorySection: React.FC<CategorySectionProps> = ({ categoryName }) => {
-  const { isLoading, error, data } = useSWR<Article[]>(
+  const { isLoading, error, data } = useSWR<QueryApiResponse<Article>>(
     `${API_CATEGORIES_PATH}/${categoryName}`,
     fetcher
   );
@@ -50,7 +51,7 @@ const CategorySection: React.FC<CategorySectionProps> = ({ categoryName }) => {
           </Flex>
         </Link>
       </Flex>
-      <NewsCards data={data?.slice(0, 4)} />
+      <NewsCards data={data?.results.slice(0, 4)} />
     </Box>
   );
 };

@@ -1,6 +1,7 @@
 "use client";
 
-import { fetcher } from "@/lib/queries/fetcher";
+import { fetcher } from "@/lib/swr/fetcher";
+import { QueryApiResponse } from "@/lib/types/query-api-response";
 import { API_CATEGORIES_PATH } from "@/lib/urls";
 import dynamic from "next/dynamic";
 import useSWR from "swr";
@@ -10,12 +11,15 @@ const CategorySection = dynamic(
 );
 
 const CategorySections = () => {
-  const { isLoading, error, data } = useSWR<string[]>(API_CATEGORIES_PATH, fetcher);
+  const { isLoading, error, data } = useSWR<QueryApiResponse<string>>(
+    API_CATEGORIES_PATH,
+    fetcher
+  );
   
   return (
     <>
       {
-        data?.map((category) => (
+        data?.results.map((category) => (
           <CategorySection key={category} categoryName={category} />
         ))
       }
