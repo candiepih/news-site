@@ -13,7 +13,7 @@ interface ArticleCardsProps {
 const ArticleCards: React.FC<ArticleCardsProps> = ({ data }) => {
   return (
     <Grid
-      columns="4"
+      columns={{ initial: "1", sm: "2", md: "3", lg: "4" }}
       gap="4"
       rows="repeat(auto-fit, minmax(250px, 1fr))"
       width="auto"

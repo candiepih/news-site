@@ -9,6 +9,7 @@ import { CATEGORIES_ROUTE } from "@/lib/routes";
 import { formatTitle } from "@/lib/helpers/format";
 import { QueryApiResponse } from "@/lib/types/query-api-response";
 import { fetcher } from "@/lib/swr/fetcher";
+import NavDrawer from "./mobile/nav-drawer.component";
 
 const NavListItem = dynamic(
   () => import("@/components/ui/nav/list-item.component")
@@ -39,21 +40,23 @@ const TopNav = () => {
           <Box>
             <Heading>News</Heading>
           </Box>
-          {data && (
-            <NavigationMenu.List className="flex flex-row gap-5">
-              <NavListItem title="All" href="/" />
-              {data?.results.map((category) => (
-                <NavListItem
-                  key={category}
-                  title={formatTitle(category)}
-                  href={`${CATEGORIES_ROUTE}/${category}`}
-                />
-              ))}
-            </NavigationMenu.List>
-          )}
+          <Box className="hidden lg:block">
+            {data && (
+              <NavigationMenu.List className="flex flex-row gap-5">
+                <NavListItem title="All" href="/" />
+                {data?.results.map((category) => (
+                  <NavListItem
+                    key={category}
+                    title={formatTitle(category)}
+                    href={`${CATEGORIES_ROUTE}/${category}`}
+                  />
+                ))}
+              </NavigationMenu.List>
+            )}
+          </Box>
         </Flex>
-        <Box>
-          <Tooltip content="Toggle theme">
+        <Box className="lg:hidden">
+          {/* <Tooltip content="Toggle theme">
             <IconButton variant="ghost" highContrast>
               <svg
                 width="15"
@@ -70,7 +73,8 @@ const TopNav = () => {
                 ></path>
               </svg>
             </IconButton>
-          </Tooltip>
+          </Tooltip> */}
+          <NavDrawer />
         </Box>
       </Flex>
     </NavigationMenu.Root>
