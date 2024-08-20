@@ -31,7 +31,7 @@ const CategoryPageArticles: React.FC<CategoryPageArticlesProps> = ({ categoryNam
   const lastPage = pages?.at(size - 1);
 
   return (
-    <Box className="h-auto" m="9">
+    <Box className="h-auto" mx={{ initial: "5", md: "9" }} my="9">
       <ArticleCards data={pages?.flatMap((page) => page.results)} />
       {lastPage?.next && (
         <Flex justify="center" my="9">

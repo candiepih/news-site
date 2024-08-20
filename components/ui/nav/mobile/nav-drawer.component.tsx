@@ -23,6 +23,7 @@ import Link from "next/link";
 import { DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
+import navItemIcons from "../nav-item-icons.component";
 
 const NavDrawer = () => {
   const { isLoading, error, data } = useSWR<QueryApiResponse<string>>(
@@ -58,15 +59,15 @@ const NavDrawer = () => {
           View news articles by category
         </DialogDescription>
         <Box className="py-10">
-          <ul className="divide-y divide-[var(--gray-12)]">
-            {data?.results.map((category) => (
+          <ul>
+            {data?.results.map((category: string) => (
               <li
                 key={category}
                 className={clsx(
                   "py-2",
                   pathname === `${CATEGORIES_ROUTE}/${category}`
-                    ? "font-bold"
-                    : ""
+                    ? "font-extrabold text-[var(--accent-10)]"
+                    : "text-gray-300"
                 )}
               >
                 <Link href={`${CATEGORIES_ROUTE}/${category}`}>

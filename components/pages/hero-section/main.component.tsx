@@ -43,14 +43,18 @@ const HeroSection: React.FC<HeroSectionProps> = ({ categoryName }) => {
           className="object-cover object-top"
         />
       </Box>
-      <Box className="z-10" width="100%" p="9">
+      <Box className="z-10" width="100%" p={{ initial: "5", md: "9" }}>
         <Flex width="100%" height="100%">
           {firstArticle && (
-            <Flex className="w-3/4" direction="column" justify="end">
+            <Flex
+              className="w-full xl:w-3/4"
+              direction={{ initial: "column", xl: "row" }}
+              justify="end"
+            >
               <Text as="p" className="uppercase tracking-widest" size="1">
                 {formatTitle(firstArticle.category)}
               </Text>
-              <Box width="70%" my="2">
+              <Box width={{ initial: "100%", sm: "70%" }} my="2">
                 <Link
                   href={firstArticle.link}
                   className="text-[var(--gray-12)]"
@@ -74,7 +78,12 @@ const HeroSection: React.FC<HeroSectionProps> = ({ categoryName }) => {
               </Flex>
             </Flex>
           )}
-          <Flex direction="column" className="w-1/4" justify="end" gapY="4">
+          <Flex
+            direction="column"
+            className="w-0 xl:w-1/4 hidden xl:flex"
+            justify="end"
+            gapY="4"
+          >
             {otherArticles?.map((article) => (
               <NewsCard key={article._id} article={article} />
             ))}
