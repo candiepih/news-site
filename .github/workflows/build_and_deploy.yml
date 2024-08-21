@@ -84,10 +84,10 @@ jobs:
       run: |
           kamal env push
       env: 
-          SERVER_IPS: ${{ secrets.KAMAL_HOSTS }}
+          KAMAL_HOSTS: ${{ secrets.KAMAL_HOSTS }}
 
     - name: Deploy the news-site service
       run: kamal deploy --skip-push --version=latest
       env:
           KAMAL_REGISTRY_PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
-          SERVER_IPS: ${{ secrets.KAMAL_HOSTS }}
+          KAMAL_HOSTS: ${{ secrets.KAMAL_HOSTS }}
