@@ -36,13 +36,13 @@ const TopNav = () => {
         left="0"
         width="100%"
       >
-        <Flex gap="6" direction="row">
+        <Flex gap="6" direction="row" className="flex items-center">
           <Box>
             <Heading>News</Heading>
           </Box>
           <Box className="hidden lg:block">
             {data && (
-              <NavigationMenu.List className="flex flex-row gap-5">
+              <NavigationMenu.List className="flex flex-row gap-5 items-center">
                 <NavListItem title="All" href="/" />
                 {data?.results.map((category) => (
                   <NavListItem

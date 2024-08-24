@@ -1,29 +1,20 @@
 "use client";
 
-import * as NavigationMenu from "@radix-ui/react-navigation-menu";
-import { CATEGORIES_ROUTE } from "@/lib/routes";
-import { formatTitle } from "@/lib/helpers/format";
 import {
   Drawer,
-  DrawerClose,
   DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
+  DrawerTrigger
 } from "@/components/ui/drawer";
+import { formatTitle } from "@/lib/helpers/format";
+import { CATEGORIES_ROUTE } from "@/lib/routes";
 import { fetcher } from "@/lib/swr/fetcher";
 import { QueryApiResponse } from "@/lib/types/query-api-response";
 import { API_CATEGORIES_PATH } from "@/lib/urls";
-import { Box, Button, IconButton, Text } from "@radix-ui/themes";
-import useSWR from "swr";
-import NavListItem from "../list-item.component";
-import Link from "next/link";
 import { DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
-import { usePathname } from "next/navigation";
+import { Box, Link, Text } from "@radix-ui/themes";
 import clsx from "clsx";
-import navItemIcons from "../nav-item-icons.component";
+import { usePathname } from "next/navigation";
+import useSWR from "swr";
 
 const NavDrawer = () => {
   const { isLoading, error, data } = useSWR<QueryApiResponse<string>>(
@@ -52,11 +43,24 @@ const NavDrawer = () => {
         </svg>
       </DrawerTrigger>
       <DrawerContent className="px-10">
-        <DialogTitle className="uppercase tracking-widest">
-          News Categories
+        <DialogTitle className="uppercase tracking-widest flex items-center gap-x-2">
+          <Box as="span" display="inline-block">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="1em"
+              height="1em"
+              viewBox="0 0 32 32"
+            >
+              <path
+                fill="currentColor"
+                d="M14 25h14v2H14zm-6.83 1l-2.58 2.58L6 30l4-4l-4-4l-1.42 1.41zM14 15h14v2H14zm-6.83 1l-2.58 2.58L6 20l4-4l-4-4l-1.42 1.41zM14 5h14v2H14zM7.17 6L4.59 8.58L6 10l4-4l-4-4l-1.42 1.41z"
+              />
+            </svg>
+          </Box>
+          <Text>Categories</Text>
         </DialogTitle>
         <DialogDescription className="text-gray-500">
-          View news articles by category
+          All the latest news categories
         </DialogDescription>
         <Box className="py-10">
           <ul>
@@ -64,14 +68,14 @@ const NavDrawer = () => {
               <li
                 key={category}
                 className={clsx(
-                  "py-2",
+                  "py-2 hover:text-orange-400",
                   pathname === `${CATEGORIES_ROUTE}/${category}`
-                    ? "font-extrabold text-[var(--accent-10)]"
+                    ? "font-extrabold border-b border-gray-800"
                     : "text-gray-300"
                 )}
               >
                 <Link href={`${CATEGORIES_ROUTE}/${category}`}>
-                  <Text as="p">{formatTitle(category)}</Text>
+                  {formatTitle(category)}
                 </Link>
               </li>
             ))}
