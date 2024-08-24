@@ -26,7 +26,7 @@ const CategorySection: React.FC<CategorySectionProps> = ({ categoryName }) => {
   );
 
   return (
-    <Box className="h-auto" m="9">
+    <Box className="h-auto" mx={{ initial: "5", md: "9" }} my="9">
       <Flex justify="between" align="center" gap="4" my="5">
         <Heading as="h1" size="6">
           {formatTitle(categoryName)}

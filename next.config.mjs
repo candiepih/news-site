@@ -2,6 +2,7 @@
 const apiUrl = process.env.API_URL;
 
 const nextConfig = {
+  output: "standalone",
   reactStrictMode: true,
   images: {
     remotePatterns: [
@@ -10,14 +11,14 @@ const nextConfig = {
         hostname: "*",
         port: "",
         pathname: "/**",
-      }
+      },
     ],
   },
   async rewrites() {
     return {
       beforeFiles: [
         {
-          source: "/api/:path*",
+          source: "/proxy-api/:path*",
           destination: `${apiUrl}/:path*/`,
         },
       ],

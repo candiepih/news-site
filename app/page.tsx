@@ -6,7 +6,7 @@ const CategorySections = dynamic(() => import("@/components/pages/home-page/cate
 export default function Home() {
   return (
     <main>
-      <HeroSection categoryName="global_news" />
+      <HeroSection categoryName="sports" />
       <CategorySections />
     </main>
   );

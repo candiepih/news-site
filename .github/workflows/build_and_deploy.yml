@@ -1,0 +1,95 @@
+name: Build and Deploy Docker Images
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build_and_push_images:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v3
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+      with:
+          version: latest
+
+    - name: Login to DigitalOcean Container Registry
+      uses: docker/login-action@v3
+      with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+    
+    - name: Build and push
+      uses: docker/build-push-action@v5
+      with:
+        tags: candiepih/news-site:latest
+        context: .
+        file: ./deployment/Dockerfile
+        push: true
+        build-args: |
+          API_URL=${{ secrets.API_URL }}
+        labels: service=news-site
+
+  deploy_apps:
+    needs: build_and_push_images
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 3.4
+        bundler-cache: true
+
+    - name: Install Kamal and other dependencies
+      run: |
+          gem install specific_install
+          gem specific_install https://github.com/basecamp/kamal.git
+
+    - name: webfactory/ssh-agent
+      uses: webfactory/ssh-agent@v0.9.0
+      with:
+        ssh-private-key: ${{ secrets.SERVER_KEY }}
+
+    - name: Add mask to the host IPs
+      run: |
+        echo "::add-mask::${{ secrets.KAMAL_HOSTS }}" 
+
+    - name: Create .env files
+      run: |
+          echo "API_URL=${{ secrets.API_URL }}" >> .env
+
+    - name: Push env variables
+      run: |
+          kamal env push
+      env: 
+          KAMAL_HOSTS: ${{ secrets.KAMAL_HOSTS }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+
+    - name: Deploy the news-site service
+      run: kamal deploy --skip-push --version=latest
+      env:
+          KAMAL_REGISTRY_PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
+          KAMAL_HOSTS: ${{ secrets.KAMAL_HOSTS }}
+          SSH_USER: ${{ secrets.SSH_USER }}
