@@ -57,7 +57,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ categoryName }) => {
               <Box width={{ initial: "100%", sm: "70%" }} my="2">
                 <Link
                   href={firstArticle.link}
-                  className="text-[var(--gray-12)]"
+                  className="text-gray-50"
                 >
                   <Heading size="8" className="line-clamp-2">
                     {firstArticle.title}
