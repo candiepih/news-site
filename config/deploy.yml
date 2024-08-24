@@ -16,10 +16,11 @@ servers:
       interval: 30s
       max_attempts: 15
     labels:
-      traefik.http.routers.domain.rule: Host(`news.alexnjagi.com`)
-      traefik.http.routers.domain.entrypoints: websecure
-      traefik.http.routers.domain.tls.certresolver: letsencrypt
-
+      traefik.enable: true
+      traefik.http.routers.news-site.rule: Host(`news.alexnjagi.com`)
+      traefik.http.routers.news-site.entrypoints: websecure
+      traefik.http.routers.news-site.tls: true
+      traefik.http.routers.news-site.tls.certresolver: letsencrypt
 
 # Credentials for your image host.
 registry:
