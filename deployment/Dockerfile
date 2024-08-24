@@ -21,7 +21,7 @@ RUN \
 # Rebuild the source code only when needed
 FROM base AS builder
 
-ARG API_URL="http://localhost:3000"
+ARG API_URL="http://news-api-web-news-api-latest:8000"
 ENV API_URL=${API_URL}
 
 WORKDIR /app
