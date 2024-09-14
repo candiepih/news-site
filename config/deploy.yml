@@ -9,7 +9,7 @@ servers:
   web:
     hosts: <%= ENV.fetch('KAMAL_HOSTS').split(',') %>
     options:
-      network: "news-scraper"
+      network: "kamal"
     healthcheck:
       path: /api/health
       port: 3000
@@ -77,7 +77,6 @@ ssh:
 
 # Configure custom arguments for Traefik. Be sure to reboot traefik when you modify it.
 traefik:
-  image: traefik:v3.0
   publish: false
   options:
     publish:
@@ -85,7 +84,7 @@ traefik:
       - "443:443"
     volume:
       - "/etc/traefik/acme/:/etc/traefik/acme/"
-    network: "news-scraper"
+    network: "kamal"
     # memory: 500m
   args:
     entryPoints.web.address: ":80"
