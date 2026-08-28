@@ -74,7 +74,7 @@ export default function RootLayout({
           className={clsx("bg-[var(--accent-1)]")}
         >
           <TopNav />
-          <h1>New content here ======= Testing new changes</h1>
+          <h1>Testing for other new content ============</h1>
           {children}
           <Footer />
         </Theme>
